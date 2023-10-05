@@ -16,24 +16,24 @@ function Copyright() {
     </Typography>
   );
 }
-class AppRouter extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <div>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<App />} />
-          </Routes>
-        </div>
-        <div>
-          <Box mt={5}>
-            <Copyright />
-          </Box>
-        </div>
-      </BrowserRouter>
-    );
-  }
+
+function AppRouter() {
+  return (
+    <BrowserRouter>
+      <div>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<App />} />
+        </Routes>
+      </div>
+      <div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </div>
+    </BrowserRouter>
+  );
 }
+
 export default AppRouter;
