@@ -18,6 +18,8 @@ import Lotto from "./Lotto";
 function App() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [itemcomplete, setItemComplete] = useState(0);
+  const [time, setTime] = useState("00:00:00");
 
   const add = (item) => {
     call("/todo", "POST", item).then((response) => setItems(response.data));
@@ -37,6 +39,42 @@ function App() {
       setLoading(false);
     });
   }, []);
+
+  const CalculateAll = () => {
+    if (items.length > 0) {
+      console.log(items.length);
+      let completedItemsCount = 0;
+      items.map((item) => {
+        console.log(item.done);
+        if (item.done === true) {
+          completedItemsCount++;
+        }
+      });
+
+      const completionPercentage = (completedItemsCount / items.length) * 100;
+      setItemComplete(completionPercentage);
+    }
+  };
+
+  useEffect(() => {
+    if (items.length > 0) {
+      CalculateAll();
+    }
+  });
+
+  const currentTime = () => {
+    const date = new Date();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    setTime(`${hours}:${minutes}:${seconds}`);
+  };
+
+  const startTime = () => {
+    setInterval(currentTime, 1000);
+  };
+
+  startTime();
 
   var todoItems = items.length > 0 && (
     <Paper style={{ margin: 16 }}>
@@ -76,6 +114,10 @@ function App() {
     <div>
       {navigationBar}
       <Container maxWidth="md">
+        <Typography component="legend">
+          <h3>오늘의 Todo 진행도 : {itemcomplete.toFixed(1)}%</h3>
+          {time}
+        </Typography>
         <AddTodo add={add} />
         <div className="TodoList">{todoItems}</div>
       </Container>

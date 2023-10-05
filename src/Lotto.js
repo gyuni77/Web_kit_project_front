@@ -28,6 +28,14 @@ function App() {
       <div id="result">당첨 번호: {number.join(",")}</div>
       <div id="bonus">보너스 번호: {bonus}</div>
       <button onClick={clickBtn}>추첨 시작</button>
+      <div>
+        <a
+          href="https://dhlottery.co.kr/gameInfo.do?method=buyLotto"
+          style={{ textDecoration: "none", color: "skyblue" }}
+        >
+          로또 구매
+        </a>
+      </div>
     </div>
   );
 }
